@@ -1,0 +1,48 @@
+install scala -> v2
+export path=$PATH:/home/.../bin du tar
+
+commande => scala (:quit pour partir) / scalac
+
+fonction pure -> entrée a, sortie b => une valeur de a renvoi toujours la même valeur de b (uniquement déterminé à a)
+
+transparence référentielle -> on prends un bout de programme et on peut le remplacer par son résultat / on veut pas que le contexte influe sur le résultat
+
+fnc d'ordre supérieur => fonction qui prend en param une autre fonction ou lambda
+
+recursive terminal -> la dernière instruction est l'appel récusif
+
+revoir ce que c'est la covariance
+
+
+Structures de données
+déclaration liste chainée
+
+	sealed trait List[+A]	//sealed -> verouille l'arborescence d'héritabe aux trucs juste après
+
+	case object Nil extends List[Nothing]	//object -> créé un singleton
+
+	case class Cons[+A](head:A, tail:List[A]) extends List[A]	//case class -> immuable
+
+fonction partielle -> fonction qui ne s'applique pas sur certain de ces paramètres(exception si le paramètre a une certaine valeur)
+
+fonction totale -> fonction qui marche quelque soit les paramètres -> pas de null ou d'exception
+
+évaluation non stricte -> On évalue pas tant que on en a pas besoin
+
+évaluation paraisseuse -> def maybeTwice(b:Boolean, i: => Int) => {
+							if(b) i+i else 
+						}
+				se transforme en : (pour éviter d'exécuter la fonction i deux fois et garder la première valeur calculée)
+						def maybeTwice(b:Boolean, i: => Int) {
+							lazy val j = i
+							if(b) j+j else 0
+						}
+
+				exemple : 
+						val x =  {println("x"); 1}		//strict
+						lazy val y = {println("y"); 2}	//évaluation et sauvegarde quand on va s'en servir
+						def z = { println("z"); 3}		//exécute à chaque fois
+
+						z + x + y + z + x + y
+
+						donne x z y z

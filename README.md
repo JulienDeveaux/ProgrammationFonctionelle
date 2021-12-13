@@ -1,2 +1,2 @@
 # ProgrammationFonctionelle
-Programmation Fonctionelle IWOCS M1-S1 
+Ensemble des cours de programmation fonctionelle du M1 IWOCS
